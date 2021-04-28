@@ -10,7 +10,7 @@ import {
   Image,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
   useColorScheme,
 } from 'react-native';
@@ -42,6 +42,7 @@ export const SegmentedControlTab = ({
   fontStyle = {},
   activeFontStyle = {},
   appearance,
+  extraView,
 }: Props): React.Node => {
   const colorSchemeHook = useColorScheme();
   const colorScheme = appearance || colorSchemeHook;
@@ -81,8 +82,8 @@ export const SegmentedControlTab = ({
   };
 
   return (
-    <TouchableOpacity
-      style={styles.container}
+    <TouchableWithoutFeedback
+      style={[styles.container]}
       disabled={!enabled}
       onPress={onSelect}
       accessibilityState={{selected: selected, disabled: !enabled}}>
@@ -94,8 +95,9 @@ export const SegmentedControlTab = ({
         ) : (
           <Text style={[idleStyle, selected && activeStyle]}>{value}</Text>
         )}
+        {extraView}
       </View>
-    </TouchableOpacity>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -107,6 +109,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 2,
     borderRadius: 5,
+    flexDirection: 'row',
   },
   activeText: {
     fontWeight: '700',

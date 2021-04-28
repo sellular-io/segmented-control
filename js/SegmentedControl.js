@@ -35,6 +35,7 @@ const SegmentedControl = ({
   fontStyle,
   activeFontStyle,
   appearance,
+  valueToViewMap = {},
 }: SegmentedControlProps): React.Node => {
   const colorSchemeHook = useColorScheme();
   const colorScheme = appearance || colorSchemeHook;
@@ -73,6 +74,7 @@ const SegmentedControl = ({
         colorScheme === 'dark' && styles.darkControl,
         backgroundColor && {backgroundColor},
         !enabled && styles.disabled,
+        { backgroundColor: '#efefef' },
       ]}
       onLayout={({
         nativeEvent: {
@@ -85,12 +87,10 @@ const SegmentedControl = ({
           setSegmentWidth(newSegmentWidth);
         }
       }}>
-      {!backgroundColor && !tintColor && (
-        <SegmentsSeparators
-          values={values.length}
-          selectedIndex={selectedIndex}
-        />
-      )}
+      <SegmentsSeparators
+        values={values.length}
+        selectedIndex={selectedIndex}
+      />
       <View style={styles.segmentsContainer}>
         {values &&
           values.map((value, index) => {
@@ -104,6 +104,7 @@ const SegmentedControl = ({
                 fontStyle={fontStyle}
                 activeFontStyle={activeFontStyle}
                 appearance={colorScheme}
+                extraView={valueToViewMap[value]}
                 onSelect={() => {
                   handleChange(index);
                 }}
