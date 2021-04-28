@@ -99,4 +99,10 @@ export type SegmentedControlProps = $ReadOnly<{|
    * it will override fontStyle for the selected segment
    */
   activeFontStyle?: FontStyle,
+
+  /**
+   * A map for to render extra view right side
+   * of segmentTab
+   * */
+  valueToViewMap?: Object,
 |}>;
